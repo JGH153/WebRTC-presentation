@@ -1,2 +1,2 @@
-# WebRTC-presentation
+# RxJS-presentation
 Using reveal.js
