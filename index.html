@@ -37,6 +37,52 @@
                     <!-- New gif? -->
 					<img class="stretch" data-src="content/whaaat.gif">
                 </section>
+                <section>
+                    <!-- the heart of web rtc -->
+                    <!-- aquiaring video and audio -->
+                    getUserMedia()
+                    <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                        navigator.mediaDevices.getUserMedia(settings).then(use it)
+                    </code></pre>
+                </section>
+
+                <section>
+                    Can append directly to a video element
+                    <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+.then(function(mediaStream) {
+    var video = document.querySelector('video');
+    video.srcObject = mediaStream;
+    video.onloadedmetadata = function(e) {
+        video.play();
+    };
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <section>
+                        The browser developers handle the nasty struff, and we use high level API
+                    </section>
+                    <section>
+                        Cross browser
+                        <img class="stretch" data-src="content/edgeInternett.jpg">
+                        <!-- <img class="fragment" data-src="content/edgeInternett.jpg"> -->
+                    </section>
+                </section>
+
+                <section>
+                    A lot of cool things you can do with steam capturing (getUserMedia)
+                </section>
+
+                <section>
+                    <section>
+                        But the focus here is on the RTCPeerConnection
+                    </section>
+                    <section>
+                        Connection you to other browsers
+                    </section>
+                </section>
 
                 <section>
                     <section>
@@ -90,7 +136,7 @@
 
                 <section>
                     <section>
-                        Time to see some code
+                        Time to see some action
                         Example app
                     </section>
                     <section>
@@ -102,13 +148,87 @@
                     Allows you to select the method for transmiting connection setup
                 </section>
 
+                <!-- adding some lines of code? -->
+                <section>
+                    <section>
+                        Process for connection to another client
+                    </section>
+
+                    <section>
+                        Connect to a shared backend for signaling
+                    </section>
+
+                    <section>
+                        (optionally) get access to video/sound
+                        (optionally) create an data channel
+                    </section>
+
+                    <section>
+                        Setup RTCPeerConnection with a Stun server
+
+                        <p class="fragment">
+                            STUN is used for finding your public IP and port for establishing a connection
+                        </p>
+
+                        <p class="fragment">
+                            Now we are ready to call some one
+                        </p>
+                    </section>
+
+                    <!-- https://temasys.com.sg/webrtc-ice-sorcery/ -->
+                    <section>
+                        Call some user connected to the same backend by sending an offer (RTCSessionDescription)
+                        <p class="fragment">
+                            A description of who you are, and what you support (your browser)
+                        </p>
+                    </section>
+
+                    <section>
+                        The other user then recives this from the backend and creates a answer (RTCSessionDescription)
+                    </section>
+
+                    <section>
+                        Then a series of candiates are sent back and forth (RTCIceCandidate)
+                        <!-- generate media traversal candidates  -->
+                        <p class="fragment">
+                            For finding the shortest path between your two computers
+                        </p>
+                    </section>
+
+                    <section>
+                        Then each client attemt to connect to each other
+                    </section>
+                    
+                    <section>
+                        Falling back to TURN, an intermediary server
+                    </section>
+
+                    <section>
+                        And they you are connected
+                        <p class="fragment">
+                            Not an complete overview
+                        </p>
+                    </section>
+
+                    <section>
+                        You choose how they are sendt (HTTP, websocet, ...)
+                    </section>
+
+                    <!-- <section>
+                        Types of connection
+                        Direct (same LAN, or successfull direct connection throu NAT)
+                        Relay using TURN server
+
+                    </section> -->
+                </section>
+
                 <section>
                     Some hostory? org by google
                 </section>
                 
                 <section>
                     Supported everywhere, exept in one browser
-                    <img class="stretch fragment" data-src="content/edgeInternett.jpg">
+                    <img class="stretch" data-src="content/edgeInternett.jpg">
                 </section>
                 <section>
                     Object RTC API
