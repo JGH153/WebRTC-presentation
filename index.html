@@ -24,10 +24,29 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
+
+                <section>
+                    <h1>
+                        Web-RTC
+                    </h1>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>
+                            Story time
+                        </h1>
+                    </section>
+                    <section>
+                        Calling you parents in skype
+                        <!-- need to open, install and still laggy and bad -->
+                    </section>
+                </section>
+
 				<section>
 					<h2>Web Real-Time Communication</h2>
 					WebRTC
-				</section>
+                </section>
 
 				<section>
 					The goal is to give an overvierw, and provide examples of how it can be used (TODO CHANGE)
@@ -65,15 +84,22 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         The browser developers handle the nasty struff, and we use high level API
                     </section>
                     <section>
+                        Plugin free
+                    </section>
+                    <section>
                         Cross browser
-                        <img class="stretch" data-src="content/edgeInternett.jpg">
                         <!-- <img class="fragment" data-src="content/edgeInternett.jpg"> -->
+                    </section>
+                    <section>
+                        <img class="stretch" data-src="content/edgeInternett.jpg">
                     </section>
                 </section>
 
                 <section>
                     A lot of cool things you can do with steam capturing (getUserMedia)
                 </section>
+
+                <!--  maybe add a few slides (ca 5 ish min) about just get user media? -->
 
                 <section>
                     <section>
@@ -98,6 +124,10 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         Breaks the server-client model
                     </section>
 
+                    <section>
+                        A central server is only used for signaling
+                    </section>
+
 
                 </section>
 
@@ -108,6 +138,9 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Real-time Transport Protocol (RTP)
                         UDP based
+                    </section>
+                    <section>
+                        HTTPS only
                     </section>
                     <section>
                         Video and audio channel
@@ -126,11 +159,28 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         Sending any data directly between one or more clients
                     </section>
                     <section>
+                        Text chat (Secure E2E chat)
+                    </section>
+                    <section>
                         File transfer
-                        Screen sharing
+                    </section>
+                    <section>
                         Gaming
-                        Secure E2E chat
+                    </section>
+                    <section>
+                        Screen sharing
+                    </section>
+                    <section>                        
                         State (redux)
+                    </section>
+                    <section>
+                        Front end content delivery network
+                    </section>
+                    <section>
+                        No user rights required
+                    </section>
+                    <section>
+                        The data channel and TCP + ordering
                     </section>
                 </section>
 
@@ -145,7 +195,26 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
                 <section>
-                    Allows you to select the method for transmiting connection setup
+                    A simple backend
+                </section>
+
+                <section>
+                    Signaling
+                </section>
+
+                <section>
+                    <section>
+                        Allows you to select the method for transmiting connection setup
+                    </section>
+                    <section>
+                        A few examples
+                    </section>
+                    <section>
+                        Pure HTTP (AJAX)
+                    </section>
+                    <section>
+                        Web socet
+                    </section>
                 </section>
 
                 <!-- adding some lines of code? -->
@@ -159,12 +228,12 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     </section>
 
                     <section>
-                        (optionally) get access to video/sound
+                        (optionally) get access to video/sound<br>
                         (optionally) create an data channel
                     </section>
 
                     <section>
-                        Setup RTCPeerConnection with a Stun server
+                        Setup RTCPeerConnection with a STUN server
 
                         <p class="fragment">
                             STUN is used for finding your public IP and port for establishing a connection
@@ -177,7 +246,10 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 
                     <!-- https://temasys.com.sg/webrtc-ice-sorcery/ -->
                     <section>
-                        Call some user connected to the same backend by sending an offer (RTCSessionDescription)
+                        Call some user connected to the same backend
+                        <p class="fragment">
+                            Create and send an offer (RTCSessionDescription)
+                        </p>
                         <p class="fragment">
                             A description of who you are, and what you support (your browser)
                         </p>
@@ -188,10 +260,13 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     </section>
 
                     <section>
-                        Then a series of candiates are sent back and forth (RTCIceCandidate)
+                        Then a series of ICE candiates are sent back and forth (RTCIceCandidate)
                         <!-- generate media traversal candidates  -->
                         <p class="fragment">
                             For finding the shortest path between your two computers
+                        </p>
+                        <p class="fragment">
+                            Interactive Connectivity Establishment (ICE)
                         </p>
                     </section>
 
@@ -208,10 +283,6 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         <p class="fragment">
                             Not an complete overview
                         </p>
-                    </section>
-
-                    <section>
-                        You choose how they are sendt (HTTP, websocet, ...)
                     </section>
 
                     <!-- <section>
