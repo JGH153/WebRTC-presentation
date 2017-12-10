@@ -72,9 +72,6 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 .then(function(mediaStream) {
     var video = document.querySelector('video');
     video.srcObject = mediaStream;
-    video.onloadedmetadata = function(e) {
-        video.play();
-    };
 }
                     </code></pre>
                 </section>
@@ -104,6 +101,9 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 <section>
                     <section>
                         But the focus here is on the RTCPeerConnection
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            var myRtcConnection = new RTCPeerConnection(configuration);
+                        </code></pre>
                     </section>
                     <section>
                         Connection you to other browsers
@@ -116,13 +116,17 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     </section>
 
                     <section>
-                        Peer to Peer
-                        Direct comunication
+                        Breaks the server-client model
+                        <img class="stretch" data-src="content/webrtc/csm.png">
                     </section>
 
                     <section>
-                        Breaks the server-client model
+                        Peer to Peer
+                        Direct comunication
+                        <img class="stretch" data-src="content/webrtc/p2p.png">
                     </section>
+
+                    
 
                     <section>
                         A central server is only used for signaling
@@ -140,19 +144,22 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         UDP based
                     </section>
                     <section>
-                        HTTPS only
+                        HTTPS only (exept for localhost)
                     </section>
                     <section>
                         Video and audio channel
                     </section>
                     <section>
                         Data channel
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
+                        </code></pre>
                     </section>
                 </section>
 
                 <section>
                     <section>
-                        What can this data channel be used for?!?
+                        What can this data channel be used for?
                     </section>
 
                     <section>
@@ -201,6 +208,10 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 <section>
                     Signaling
                 </section>
+                
+                <section>
+                    Premium tutorials with premium priced backends
+                </section>
 
                 <section>
                     <section>
@@ -215,6 +226,14 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Web socet
                     </section>
+                    <section>
+                        <pre><code class="TypeScript" data-trim contenteditable>
+                            var wss = new WebSocketServer({port: 9095});
+                            wss.on('connection', function(connection) {
+                            connection.on('message', function(message) {
+                            connection.on("close", function() {
+                        </code></pre>
+                    </section>
                 </section>
 
                 <!-- adding some lines of code? -->
@@ -225,19 +244,53 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 
                     <section>
                         Connect to a shared backend for signaling
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            var wsConnection = new WebSocket('ws://localhost:9095/');
+                            wsConnection.onopen = () => {}
+                            this.wsConnection.onmessage = (newMessage) => {
+                                var data = JSON.parse(newMessage.data);
+                                // handle message
+                            }
+                            wsConnection.send( JSON.stringify(message) );
+                        </code></pre>
                     </section>
 
                     <section>
-                        (optionally) get access to video/sound<br>
-                        (optionally) create an data channel
+                        Get access to video/sound<br>
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(myStream => {
+                                // use it 
+                            }
+                        </code></pre>
                     </section>
 
                     <section>
-                        Setup RTCPeerConnection with a STUN server
+                        Setup RTCPeerConnection with a STUN server 
 
                         <p class="fragment">
                             STUN is used for finding your public IP and port for establishing a connection
                         </p>
+
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            var myRtcConnection = new RTCPeerConnection(configuration);
+                            myRtcConnection.addStream(myStream);
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        Create a data channel
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            var dataChannelOptions = {
+                                reliable:true
+                            };
+                            var myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
+                            myRtcConnection.ondatachannel = (event) => {
+                                var receiveChannel = event.channel;
+                                receiveChannel.onmessage = (event) => {
+                                    // got a message
+                                }
+                            }
+                        </code></pre>
 
                         <p class="fragment">
                             Now we are ready to call some one
@@ -253,10 +306,27 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         <p class="fragment">
                             A description of who you are, and what you support (your browser)
                         </p>
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            myRtcConnection.createOffer().then(offer => {
+                                sendMessageToServer(offer);
+                                myRtcConnection.setLocalDescription(offer);
+                            }
+                        </code></pre>
+
                     </section>
 
                     <section>
                         The other user then recives this from the backend and creates a answer (RTCSessionDescription)
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            myRtcConnection.setRemoteDescription(offer);
+                            myRtcConnection.createAnswer((answer) => {
+                                sendMessageToServer(answer);
+                                myRtcConnection.setLocalDescription(answer);
+                            }
+                        </code></pre>
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            this.myRtcConnection.setRemoteDescription(answer);
+                        </code></pre>
                     </section>
 
                     <section>
@@ -268,10 +338,20 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         <p class="fragment">
                             Interactive Connectivity Establishment (ICE)
                         </p>
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            myRtcConnection.onicecandidate = (event) => {
+                                sendMessageToServer(event.candidate);
+                            }
+                            // on the other client:
+                            myRtcConnection.addIceCandidate(new RTCIceCandidate(candidate))
+                        </code></pre>
                     </section>
 
                     <section>
                         Then each client attemt to connect to each other
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            // Automagick
+                        </code></pre>
                     </section>
                     
                     <section>
@@ -294,7 +374,56 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
                 <section>
-                    Some hostory? org by google
+                    <section>
+                        Sending a chat message overt the data channel
+                        <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                            var dataChannelOptions = {
+                                reliable:true
+                            };
+                            var myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
+                            myRtcConnection.ondatachannel = (event) => {
+                                var receiveChannel = event.channel;
+                                receiveChannel.onmessage = (event) => {
+                                    // got a message
+                                }
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
+                        Send a message wehn the user types one
+                            <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+                                addChatMessage(message);
+                                let sendObject:DataChannelPacket = {
+                                    type: "chat",
+                                    data: message
+                                };
+                                myDataChannel.send( JSON.stringify( sendObject ) );
+                            </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    Sending a file
+                </section>
+
+                <section>
+                    Consider usin a shim like webrtc/adapter
+                </section>
+
+                <section>
+
+                    <section>
+                        History
+                    </section>
+                    <section>
+                        Source code
+                    </section>
+                </section>
+
+                <section>
+                    Tips for any WebRTC application
+                    ONLY ask for video when you need it, and the user underrstands<br>
+                    
                 </section>
                 
                 <section>
