@@ -12,6 +12,12 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
+		<style>
+			.slides{
+				width: 95% !important;
+			}
+		</style>
+
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
@@ -50,7 +56,7 @@
                 </section>
 
 				<section>
-					The goal is to give an overvierw, and provide examples of how it can be used (TODO CHANGE)
+					The goal is to provide an overview, and provide examples of how it can be used
 				</section>
 
 				<section>
@@ -67,15 +73,22 @@
                 </section>
 
                 <section>
-                    Can append directly to a video element
-                    <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-.then(function(mediaStream) {
-    var video = document.querySelector('video');
-    video.srcObject = mediaStream;
-}
-                    </code></pre>
-                </section>
+					<section>
+							Can append directly to a video element
+							<pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+		navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+		.then(function(mediaStream) {
+			var video = document.querySelector('video');
+			video.srcObject = mediaStream;
+		}
+							</code></pre>
+					</section>
+					<section>
+						<img class="stretch" data-src="content/webrtc/video-element.png">
+					</section>
+
+				</section>
+				
 
                 <section>
                     <section>
@@ -84,9 +97,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         <img class="stretch" data-src="content/webrtc/arcitecture.png">
                     </section>
-                    <section>
-                        Plugin free
-                    </section>
+
                     <section>
                         Acoustic echo cancellation (AEC)<br>
                         Automatic gain control (AGC)<br>
@@ -94,7 +105,10 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 
                         Conceal packet loss<br>
                         Clean up noisy images
-                    </section>
+					</section>
+					<section>
+						Plugin free
+					</section>
                     <section>
                             Cross browser
                             <!-- <img class="fragment" data-src="content/edgeInternett.jpg"> -->
@@ -105,14 +119,48 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
                 <section>
-                    A lot of cool things you can do with steam capturing (getUserMedia)
-                </section>
+					<section>
+						Using the video steam (getUserMedia)
+					</section>
+					<section>
+						Applying a live filter to the video
+						<pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+							.video-css-element{
+								filter: contrast(200%);
+							}
+						</code></pre>
 
-                <!--  maybe add a few slides (ca 5 ish min) about just get user media? -->
+						
+					</section>
+					<section>
+						<pre class=""><code class="TypeScript" data-trim contenteditable>
+							filter: drop-shadow(16px 16px 20px red) invert(75%);
+						</code></pre>
+						<div class="fragment">
+							<img class="stretch" data-src="content/webrtc/filter.png">
+						</div>
+
+					</section>
+					<section>
+						Display current volume level
+						<div class="fragment">
+							<img class="stretch" data-src="content/webrtc/soundlevel.png">
+						</div>
+					</section>
+					<section>
+						JS based face tracking/detection
+					</section>
+					<section>
+						Record a video and save it
+					</section>
+					<section>
+						And that's where most tutorials stop
+					</section>
+                </section>
 
                 <section>
                     <section>
-                        But the focus here is on the RTCPeerConnection
+                        The focus here is on the RTCPeerConnection
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             var myRtcConnection = new RTCPeerConnection(configuration);
                         </code></pre>
@@ -128,15 +176,19 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     </section>
 
                     <section>
-                        Breaks the server-client model
+                        The server-client model<br>
                         <img class="stretch" data-src="content/webrtc/csm.png">
                     </section>
 
                     <section>
-                        Peer to Peer
-                        Direct comunication
-                        <img class="stretch" data-src="content/webrtc/p2p.png">
-                    </section>
+                        Peer to Peer<br>
+                        Direct comunication<br>
+						<img class="stretch" data-src="content/webrtc/p2p.png">
+						<p class="fragment">
+							More than two clients
+						</p>
+					</section>
+					
 
                     
 
@@ -164,7 +216,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
+                            myDataChannel = myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
                         </code></pre>
                     </section>
                 </section>
@@ -198,9 +250,9 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         No user rights required
                     </section>
-                    <section>
+                    <!-- <section>
                         The data channel and TCP + ordering
-                    </section>
+                    </section> -->
                 </section>
 
                 <section>
@@ -243,6 +295,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                             var wss = new WebSocketServer({port: 9095});
                             wss.on('connection', function(connection) {
                             connection.on('message', function(message) {
+                            connection.send(message)
                             connection.on("close", function() {
                         </code></pre>
                     </section>
@@ -259,7 +312,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             var wsConnection = new WebSocket('ws://localhost:9095/');
                             wsConnection.onopen = () => {}
-                            this.wsConnection.onmessage = (newMessage) => {
+                            wsConnection.onmessage = (newMessage) => {
                                 var data = JSON.parse(newMessage.data);
                                 // handle message
                             }
@@ -270,7 +323,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Get access to video/sound<br>
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(myStream => {
+                            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(myStream => {
                                 // use it 
                             }
                         </code></pre>
@@ -292,16 +345,18 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Create a data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            var dataChannelOptions = {
-                                reliable:true
-                            };
-                            var myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
-                            myRtcConnection.ondatachannel = (event) => {
-                                var receiveChannel = event.channel;
-                                receiveChannel.onmessage = (event) => {
-                                    // got a message
-                                }
-                            }
+var dataChannelOptions = {
+	reliable:true
+};
+var myDataChannel = myRtcConnection.createDataChannel("label", dataChannelOptions)
+myRtcConnection.ondatachannel = (event) => {
+	var receiveChannel = event.channel;
+	receiveChannel.onmessage = (event) => {
+		// got a message
+	}
+}
+
+myDataChannel.send( "Some data" );
                         </code></pre>
 
                         <p class="fragment">
@@ -320,7 +375,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         </p>
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             myRtcConnection.createOffer().then(offer => {
-                                sendMessageToServer(offer);
+                                sendMessageToServer(offer, "User B");
                                 myRtcConnection.setLocalDescription(offer);
                             }
                         </code></pre>
@@ -332,12 +387,12 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             myRtcConnection.setRemoteDescription(offer);
                             myRtcConnection.createAnswer((answer) => {
-                                sendMessageToServer(answer);
+                                sendMessageToServer(answer, "User A");
                                 myRtcConnection.setLocalDescription(answer);
                             }
                         </code></pre>
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            this.myRtcConnection.setRemoteDescription(answer);
+                            myRtcConnection.setRemoteDescription(answer);
                         </code></pre>
                     </section>
 
@@ -352,7 +407,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                         </p>
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             myRtcConnection.onicecandidate = (event) => {
-                                sendMessageToServer(event.candidate);
+                                sendMessageToServer(event.candidate, "Other User");
                             }
                             // on the other client:
                             myRtcConnection.addIceCandidate(new RTCIceCandidate(candidate))
@@ -389,20 +444,21 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                     <section>
                         Sending a chat message overt the data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            var dataChannelOptions = {
-                                reliable:true
-                            };
-                            var myDataChannel = this.myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
-                            myRtcConnection.ondatachannel = (event) => {
-                                var receiveChannel = event.channel;
-                                receiveChannel.onmessage = (event) => {
-                                    // got a message
-                                }
-                            }
+var dataChannelOptions = {
+	reliable:true
+};
+var myDataChannel = myRtcConnection.createDataChannel("label", dataChannelOptions);
+myRtcConnection.ondatachannel = (event) => {
+	var receiveChannel = event.channel;
+	receiveChannel.onmessage = (event) => {
+		// got a message
+	}
+}
+myDataChannel.send( "Some data" );
                         </code></pre>
                     </section>
                     <section>
-                        Send a message wehn the user types one
+                        Send a message when the user types one
                             <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                                 addChatMessage(message);
                                 let sendObject:DataChannelPacket = {
@@ -415,7 +471,19 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
                 <section>
-                    Sending a file
+					Sending a file
+					<pre class="fragment"><code class="TypeScript" data-trim contenteditable>
+						// sender
+						var fileReader = new FileReader();
+						var fileSlice = file.slice(offset, offset + chunckSize);
+						fileReader.readAsArrayBuffer(fileSlice);
+
+						// on reciver side
+						incommingFileBuffer.push(arrayBuffer);
+
+						// when doen on reciver side
+						var recivedFile = new Blob(this.incommingFileBuffer); 
+					</code></pre>
                 </section>
 
                 <section>
@@ -425,16 +493,25 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 <section>
 
                     <section>
-                        History
+						History
+						<p class="fragment">
+							From 2011
+						</p>
                     </section>
                     <section>
                         Source code
-                    </section>
+					</section>
+					<section>
+						<img class="stretch" data-src="content/webrtc/arcitecture.png">
+					</section>
                 </section>
 
                 <section>
-                    Tips for any WebRTC application
-                    ONLY ask for video when you need it, and the user underrstands<br>
+					Tips for any WebRTC application
+					<br>
+					<p class="fragment">
+						ONLY ask for video when you need it, and the user underrstands
+					</p>
                     
                 </section>
                 
@@ -447,9 +524,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
 
-                <section>
-                    <img class="stretch" data-src="content/webrtc/arcitecture.png">
-                </section>
+                
 
 				<section>
                     Jan Greger Hemb <br />
@@ -457,7 +532,7 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
                 </section>
 
                 <section>
-                    Questions?
+                    Questions?<br>
                     <img class="stretch" data-src="content/questions.gif">
                 </section>
 
