@@ -45,7 +45,7 @@
                         </h1>
                     </section>
                     <section>
-                        Calling you parents in skype
+                        Calling you parents using skype
                         <!-- need to open, install and still laggy and bad -->
                     </section>
                 </section>
@@ -226,9 +226,9 @@
                         What can this data channel be used for?
                     </section>
 
-                    <section>
+                    <!-- <section>
                         Sending any data directly between one or more clients
-                    </section>
+                    </section> -->
                     <section>
                         Text chat (Secure E2E chat)
                     </section>
@@ -427,9 +427,41 @@ myDataChannel.send( "Some data" );
 
                     <section>
                         And they you are connected
+                    </section>
+
+
+
+                    <section>
+                        <h2>
+                            Summary
+                        </h2>
                         <p class="fragment">
-                            Not an complete overview
+                            Shared backend
                         </p>
+                        <p class="fragment">
+                            Video, sound, data
+                        </p>
+                        <p class="fragment">
+                            PeerConnection with STUN (local)
+                        </p>
+
+                        <p class="fragment">
+                            Send offer, and receive answer
+                        </p>
+                        <p class="fragment">
+                            ICE candidates for mapping the network
+                        </p>
+                        <p class="fragment">
+                            Maybe fall back to TURN
+                        </p>
+                        <h2 class="fragment">
+                            Connected!
+                        </h2>
+
+                    </section>
+
+                    <section>
+                        Not an complete setup/overview
                     </section>
 
                     <!-- <section>
@@ -441,6 +473,9 @@ myDataChannel.send( "Some data" );
                 </section>
 
                 <section>
+                    <section>
+                        Using the data channel
+                    </section>
                     <section>
                         Sending a chat message overt the data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
@@ -478,10 +513,10 @@ myDataChannel.send( "Some data" );
 						var fileSlice = file.slice(offset, offset + chunckSize);
 						fileReader.readAsArrayBuffer(fileSlice);
 
-						// on reciver side
+						// on the receiving side
 						incommingFileBuffer.push(arrayBuffer);
 
-						// when doen on reciver side
+						// when done on the receiving side
 						var recivedFile = new Blob(this.incommingFileBuffer); 
 					</code></pre>
                 </section>
