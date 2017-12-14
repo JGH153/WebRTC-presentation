@@ -216,7 +216,8 @@
                     <section>
                         Data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
-                            myDataChannel = myRtcConnection.createDataChannel("myDataChannel", dataChannelOptions);
+							myDataChannel = myRtcConnection
+							.createDataChannel("label", dataChannelOptions);
                         </code></pre>
                     </section>
                 </section>
@@ -348,7 +349,8 @@
 var dataChannelOptions = {
 	reliable:true
 };
-var myDataChannel = myRtcConnection.createDataChannel("label", dataChannelOptions)
+var myDataChannel = myRtcConnection
+.createDataChannel("label", dataChannelOptions)
 myRtcConnection.ondatachannel = (event) => {
 	var receiveChannel = event.channel;
 	receiveChannel.onmessage = (event) => {
@@ -482,7 +484,8 @@ myDataChannel.send( "Some data" );
 var dataChannelOptions = {
 	reliable:true
 };
-var myDataChannel = myRtcConnection.createDataChannel("label", dataChannelOptions);
+var myDataChannel = myRtcConnection
+.createDataChannel("label", dataChannelOptions);
 myRtcConnection.ondatachannel = (event) => {
 	var receiveChannel = event.channel;
 	receiveChannel.onmessage = (event) => {
