@@ -92,7 +92,7 @@
 
                 <section>
                     <section>
-                        The browser developers handle the nasty struff, and we use high level API
+                        The browser developers handle the nasty stuff, and we use high level API
                     </section>
                     <section>
                         <img class="stretch" data-src="content/webrtc/arcitecture.png">
@@ -120,7 +120,7 @@
 
                 <section>
 					<section>
-						Using the video steam (getUserMedia)
+						Using the video stream (getUserMedia)
 					</section>
 					<section>
 						Applying a live filter to the video
@@ -166,7 +166,7 @@
                         </code></pre>
                     </section>
                     <section>
-                        Connection you to other browsers
+                        Connecting you to other browsers
                     </section>
                 </section>
 
@@ -182,7 +182,7 @@
 
                     <section>
                         Peer to Peer<br>
-                        Direct comunication<br>
+                        Direct communication<br>
 						<img class="stretch" data-src="content/webrtc/p2p.png">
 						<p class="fragment">
 							More than two clients
@@ -208,7 +208,7 @@
                         UDP based
                     </section>
                     <section>
-                        HTTPS only (exept for localhost)
+                        HTTPS only (except for localhost)
                     </section>
                     <section>
                         Video and audio channel
@@ -258,8 +258,7 @@
 
                 <section>
                     <section>
-                        Time to see some action
-                        Example app
+                        Time to see some action with an example app
                     </section>
                     <section>
                         Demo Time!
@@ -280,7 +279,7 @@
 
                 <section>
                     <section>
-                        Allows you to select the method for transmiting connection setup
+                        Allows you to select the method for transmitting connection setup
                     </section>
                     <section>
                         A few examples
@@ -289,7 +288,7 @@
                         Pure HTTP (AJAX)
                     </section>
                     <section>
-                        Web socet
+                        Websocket
                     </section>
                     <section>
                         <pre><code class="TypeScript" data-trim contenteditable>
@@ -362,7 +361,7 @@ myDataChannel.send( "Some data" );
                         </code></pre>
 
                         <p class="fragment">
-                            Now we are ready to call some one
+                            Now we are ready to call someone
                         </p>
                     </section>
 
@@ -385,7 +384,7 @@ myDataChannel.send( "Some data" );
                     </section>
 
                     <section>
-                        The other user then recives this from the backend and creates a answer (RTCSessionDescription)
+                        The other user then receives this from the backend and creates an answer (RTCSessionDescription)
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             myRtcConnection.setRemoteDescription(offer);
                             myRtcConnection.createAnswer((answer) => {
@@ -417,7 +416,7 @@ myDataChannel.send( "Some data" );
                     </section>
 
                     <section>
-                        Then each client attemt to connect to each other
+                        Then each client attempts to connect to each other
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
                             // Automagick
                         </code></pre>
@@ -428,7 +427,7 @@ myDataChannel.send( "Some data" );
                     </section>
 
                     <section>
-                        And they you are connected
+                        And then you are connected
                     </section>
 
 
@@ -463,7 +462,7 @@ myDataChannel.send( "Some data" );
                     </section>
 
                     <section>
-                        Not an complete setup/overview
+                        Not a complete setup/overview
                     </section>
 
                     <!-- <section>
@@ -479,7 +478,7 @@ myDataChannel.send( "Some data" );
                         Using the data channel
                     </section>
                     <section>
-                        Sending a chat message overt the data channel
+                        Sending a chat message over the data channel
                         <pre class="fragment"><code class="TypeScript" data-trim contenteditable>
 var dataChannelOptions = {
 	reliable:true
@@ -525,7 +524,7 @@ myDataChannel.send( "Some data" );
                 </section>
 
                 <section>
-                    Consider usin a shim like webrtc/adapter
+                    Consider using a shim like webrtc/adapter
                 </section>
 
                 <section>
@@ -548,13 +547,13 @@ myDataChannel.send( "Some data" );
 					Tips for any WebRTC application
 					<br>
 					<p class="fragment">
-						ONLY ask for video when you need it, and the user underrstands
+						ONLY ask for video when you need it, and the user understands it
 					</p>
                     
                 </section>
                 
                 <section>
-                    Supported everywhere, exept in one browser
+                    Supported everywhere, except in one browser
                     <img class="stretch" data-src="content/edgeInternett.jpg">
                 </section>
                 <section>
